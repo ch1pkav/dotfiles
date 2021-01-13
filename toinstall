@@ -1,0 +1,2 @@
+#!/bin/bash
+exec yay -S terminator firefox thunderbird pcmanfm discord telegram-desktop spotify audacious pavucontrol feh gnome-todo zoom teams picom blueman scrot
