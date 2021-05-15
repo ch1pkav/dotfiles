@@ -28,7 +28,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-#exec --no-startup-id nm-applet
+exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -36,6 +36,8 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+exec_always $refresh_i3status
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -114,7 +116,7 @@ set $ws5 "5."
 set $ws6 "6."
 set $ws7 "7."
 set $ws8 "8."
-set $ws9 "9."
+set $ws9 "9."
 set $ws10 "10."
 
 # switch to workspace
@@ -129,6 +131,17 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
+workspace $ws1 output primary
+workspace $ws2 output primary
+workspace $ws3 output primary
+workspace $ws4 output primary
+workspace $ws5 output primary
+workspace $ws6 output primary
+workspace $ws7 output primary
+workspace $ws8 output primary
+workspace $ws9 output HDMI1
+workspace $ws10 output primary
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
@@ -142,9 +155,10 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 assign [class="Code"] $ws1
-assign [class="Terminator"] $ws1
+assign [class="Alacritty"] $ws1
 assign [class="Firefox"] $ws2
-assign [class="Thunderbird"] $ws3
+assign [class="Chromium"] $ws2
+assign [class="Thunderbird"] $ws2
 assign [class="TelegramDesktop"] $ws3
 assign [class="discord"] $ws3
 assign [class="Microsoft Teams - Preview"] $ws3
@@ -170,7 +184,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exit
 bindsym $mod+Shift+Escape exec sudo shutdown -P now
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -199,11 +213,11 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $bg-color 	         #2f343f
-set $inactive-bg-color   #2f343f
+set $bg-color 	         #000000
+set $inactive-bg-color   #000000
 set $text-color          #f3f4f5
-set $inactive-text-color #676E7D
-set $urgent-bg-color     #E53935
+set $inactive-text-color #7c818c
+set $urgent-bg-color     #5294e2
 
 # window colors
 #                       border              background         text                 indicator
@@ -225,21 +239,22 @@ bar {
 		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
 	}
 	status_command i3status
+  position top
 }
 
 #no titlebars
 default_border none
 
 #brightness control
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5 
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5 
+bindsym XF86MonBrightnessUp exec --no-startup-id brightness up && $refresh_i3status
+bindsym XF86MonBrightnessDown exec --no-startup-id brightness down && $refresh_i3status
 
 #screenshots
-bindsym Print exec "scrot ~/Pictures/"
+bindsym Print exec "scrot ~/Pictures/Screenshots/"
 
 #i3lock
-bindsym $mod+Shift+z exec "i3lock -i ~/Desktop/lockscreen.png && echo mem > /sys/power/state"
-bindsym $mod+Shift+x exec "i3lock -i ~/Desktop/lockscreen.png"
+bindsym $mod+Shift+z exec "i3lock -i ~/Desktop/ifr7s3f8hyu61.png && echo mem > /sys/power/state"
+bindsym $mod+Shift+x exec "i3lock -i ~/Desktop/ifr7s3f8hyu61.png"
 #bindsym $mod+shift+x exec "lxdm -c USER_SWITCH"
 
 #touchpad config
@@ -250,14 +265,14 @@ bindsym $mod+Shift+x exec "i3lock -i ~/Desktop/lockscreen.png"
 exec_always setxkbmap -layout us,ua -option 'grp:win_space_toggle'
 
 #background with feh
-exec_always feh --bg-scale ~/Desktop/wallpaper.jpg
+exec_always feh --bg-scale ~/Desktop/ifr7s3f8hyu61.jpg
 
 #compositor
 exec_always "picom -b --config ~/.config/picom.conf"
 
 #startup apps
 #exec --no-startup-id code
-exec --no-startup-id terminator
+exec --no-startup-id alacritty
 #exec --no-startup-id telegram-desktop
 #exec --no-startup-id pavucontrol
 #exec --no-startup-id audacious
@@ -267,6 +282,7 @@ exec --no-startup-id terminator
 #exec --no-startup-id gnome-todo
 
 #gaps
+gaps inner 5
 bindsym $mod+u gaps inner current plus 5
 bindsym $mod+i gaps inner current minus 5
 
@@ -280,3 +296,7 @@ exec_always sudo chmod 646 /sys/power/state
 
 #for bragging
 #exec terminator -e "neofetch && cat"
+
+#brightness script in /usr/local/bin
+exec_always brightness
+exec xbacklight -set 10
