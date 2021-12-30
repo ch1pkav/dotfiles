@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [[ $(playerctl -p chromium status) != Playing ]] && [[ $(playerctl -p vlc status) != Playing ]]; 
+then
+	$1
+fi

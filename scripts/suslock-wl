@@ -1,0 +1,9 @@
+#!/bin/bash
+pidof swaylock
+if [ $? -eq 1 ];
+then 
+    #lockscreen-wl
+    swaylock --screenshot -K --effect-blur 10x2 --clock --indicator -f
+    screenoff-wl
+fi
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ -z $(pgrep blueman-applet) ]; then
+	blueman-applet && sleep 2
+fi
+
+blueman-manager
+

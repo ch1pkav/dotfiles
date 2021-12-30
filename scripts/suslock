@@ -1,0 +1,9 @@
+#!/bin/bash
+pidof i3lock
+if [ $? -eq 1 ];
+then 
+	lockscreen
+	i3lock -p win -e -i /tmp/lock
+fi
+sleep 2
+exec xset dpms force suspend

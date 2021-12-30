@@ -19,7 +19,7 @@ font pango:Cantarell Regular 12
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet --indicator
 
-exec gentoo-pipewire-launcher
+exec pipewire
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym --to-code --locked XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -158,10 +158,11 @@ assign [class="Steam"] $ws4
 assign [app_id="pcmanfm"] $ws5
 assign [class="feh"] $ws5
 assign [class="Gnome-todo"] $ws6
+assign [app_id="org.qbittorrent.qBittorrent"] $ws6
 assign [class="VirtualBox Manager"] $ws7
 assign [class="VirtualBox"] $ws7
 assign [class="fl64.exe"] $ws8
-assign [class="Pavucontrol"] $ws10
+assign [app_id="pavucontrol"] $ws10
 assign [class="QjackCtl"] $ws10
 assign [class="Spotify"] $ws10
 assign [class="Audacious"] $ws10
@@ -169,7 +170,7 @@ assign [class="Audacious"] $ws10
 for_window [class="Microsoft Teams - Preview" window_type="notification"] floating enable
 for_window [class="Microsoft Teams - Preview"] fullscreen disable
 for_window [class="Blueman-manager"] floating enable
-for_window [title="JACK Audio Connection Kit *QjackCtl"] floating enable
+for_window [class="QjackCtl"] floating enable
 
 # reload the configuration file
 bindsym --to-code $mod+Shift+c reload
@@ -220,17 +221,18 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 hide_edge_borders both
 
 bar {
-  colors {
-    background $bg-color
-        separator #757575
-    #                  border             background         text
-    focused_workspace  $bg-color          $bg-color          $text-color
-    inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-    urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-  }
-  status_command i3status
-  position top
-  icon_theme "Windows XP SP3"
+  #colors {
+    #background $bg-color
+        #separator #757575
+    ##                  border             background         text
+    #focused_workspace  $bg-color          $bg-color          $text-color
+    #inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+    #urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+  #}
+  #status_command i3status
+  #position top
+  #icon_theme "Windows XP SP3"
+  swaybar_command waybar
 }
 
 #no titlebars
@@ -253,7 +255,7 @@ bindsym --to-code $mod+Shift+x exec "suslock-wl"
 #keyboard layout switching
 
 #background with feh
-output "*" bg ~/Desktop/hN0TnNU.jpg fill
+output "*" bg ~/Desktop/pexels-stein-egil-liland-3408744.jpg fill
 
 #startup apps
 #exec --no-startup-id code
@@ -289,7 +291,7 @@ input * {
 
 bindsym --locked --to-code $mod+Shift+s exec screenoff-wl
 
-exec --no-startup-id xss-lock suslock-wl
+exec --no-startup-id xss-lock "swaylock --screenshot -K --effect-blur 10x2 --clock --indicator -f"
 exec_always swayidle -w timeout 300 'smartsuspend suslock-wl' resume 'swaymsg "output * dpms on"; echo 1 > /tmp/lcd'
 
 bindsym --to-code --locked XF86AudioPlay exec playerctl play-pause
@@ -306,6 +308,10 @@ input type:touchpad {
     accel_profile flat
 }
 
+input 1102:4639:DELL0817:00_044E:121F_Mouse accel_profile flat
+input 1102:4639:DELL0817:00_044E:121F_Mouse pointer_accel 0.5
+
+
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
     gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
@@ -315,4 +321,16 @@ exec_always {
 
 bindsym --to-code $mod+q exec brave-bin keep.google.com
 
+# 
+# Font, borders, and gaps
+#
+#font Cozette 9
+#gaps inner 28
+#gaps outer -8
+#default_border none
 
+#border_images.focused ~/.config/sway/borders/focused.png
+#border_images.focused_inactive ~/.config/sway/borders/focused_inactive.png
+#border_images.unfocused ~/.config/sway/borders/unfocused.png
+#border_images.urgent ~/.config/sway/borders/urgent.png
+exec dunst&

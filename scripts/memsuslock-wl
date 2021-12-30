@@ -1,0 +1,8 @@
+#!/bin/bash
+pidof swaylock
+if [ $? -eq 1 ];
+then
+	swaylock --screenshot -K --effect-blur 10x2 --clock --indicator -f
+	playerctl pause
+fi
+sudo echo "mem" > /sys/power/state
