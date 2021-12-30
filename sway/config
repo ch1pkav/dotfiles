@@ -291,7 +291,7 @@ input * {
 
 bindsym --locked --to-code $mod+Shift+s exec screenoff-wl
 
-exec --no-startup-id xss-lock "swaylock --screenshot -K --effect-blur 10x2 --clock --indicator -f"
+exec --no-startup-id xss-lock swlck
 exec_always swayidle -w timeout 300 'smartsuspend suslock-wl' resume 'swaymsg "output * dpms on"; echo 1 > /tmp/lcd'
 
 bindsym --to-code --locked XF86AudioPlay exec playerctl play-pause
