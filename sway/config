@@ -149,7 +149,7 @@ assign [class="Firefox"] $ws2
 assign [class="Chromium"] $ws2
 assign [class="Brave-browser"] $ws2
 assign [class="Thunderbird"] $ws2
-assign [app_id="telegramdesktop"] $ws3
+assign [app_id=".*Telegram_Desktop"] $ws3
 assign [class="discord"] $ws3
 assign [class="Microsoft Teams - Preview"] $ws3
 assign [class="zoom"] $ws3
@@ -165,12 +165,13 @@ assign [class="fl64.exe"] $ws8
 assign [app_id="pavucontrol"] $ws10
 assign [class="QjackCtl"] $ws10
 assign [class="Spotify"] $ws10
-assign [class="Audacious"] $ws10
+assign [app_id="audacious"] $ws10
 
 for_window [class="Microsoft Teams - Preview" window_type="notification"] floating enable
 for_window [class="Microsoft Teams - Preview"] fullscreen disable
 for_window [class="Blueman-manager"] floating enable
 for_window [class="QjackCtl"] floating enable
+for_window [class="Spotify"] move to workspace $ws10
 
 # reload the configuration file
 bindsym --to-code $mod+Shift+c reload
