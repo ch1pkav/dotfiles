@@ -32,7 +32,7 @@ bindsym --to-code --locked XF86AudioMicMute exec --no-startup-id pactl set-sourc
 floating_modifier $mod
 
 # start a terminal
-bindsym --to-code $mod+Return exec i3-sensible-terminal
+bindsym --to-code $mod+Return exec alacritty
 
 # kill focused window
 bindsym --to-code $mod+Shift+q kill
@@ -116,6 +116,11 @@ bindsym --to-code $mod+7 workspace $ws7
 bindsym --to-code $mod+8 workspace $ws8
 bindsym --to-code $mod+9 workspace $ws9
 bindsym --to-code $mod+0 workspace $ws10
+
+bindsym --to-code $mod+q workspace back_and_forth
+bindsym --to-code $mod+Control+l workspace next
+bindsym --to-code $mod+Control+h workspace prev
+
 
 workspace $ws1 output primary
 workspace $ws2 output primary
@@ -293,7 +298,7 @@ input * {
 bindsym --locked --to-code $mod+Shift+s exec screenoff-wl
 
 exec --no-startup-id xss-lock swlck
-exec_always swayidle -w timeout 300 'smartsuspend suslock-wl' resume 'swaymsg "output * dpms on"; echo 1 > /tmp/lcd'
+exec swayidle -w timeout 300 'smartsuspend suslock-wl' resume 'swaymsg "output * dpms on"; echo 1 > /tmp/lcd'
 
 bindsym --to-code --locked XF86AudioPlay exec playerctl play-pause
 bindsym --to-code --locked XF86AudioNext exec playerctl next
@@ -309,8 +314,18 @@ input type:touchpad {
     accel_profile flat
 }
 
+input type:mouse {
+    accel_profile flat
+    pointer_accel 0.5
+}
+
+input 2522:37008:A4TECH_USB_Device accel_profile flat
+input 2522:37008:A4TECH_USB_Device pointer_accel 0
+
 input 1102:4639:DELL0817:00_044E:121F_Mouse accel_profile flat
 input 1102:4639:DELL0817:00_044E:121F_Mouse pointer_accel 0.5
+
+bindsym --to-code $mod+Shift+p exec alacritty -e pkglookup
 
 
 set $gnome-schema org.gnome.desktop.interface
@@ -320,7 +335,6 @@ exec_always {
     gsettings set $gnome-schema cursor-theme 'Simp1e-breeze-snow'
 }
 
-bindsym --to-code $mod+q exec brave-bin keep.google.com
 
 # 
 # Font, borders, and gaps

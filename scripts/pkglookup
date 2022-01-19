@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo emerge -a --autounmask $(qsearch -a | rofi -dmenu -theme ~/.config/rofi/themes/Arc-Dark.rasi | cut -d ':' -f1)
+zsh
+
