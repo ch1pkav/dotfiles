@@ -72,6 +72,7 @@ ZSH_THEME="funky"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-interactive-cd thefuck zoxide)
 
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -99,4 +100,3 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias minecraft-launcher="~/Games/minecraft-launcher/minecraft-launcher"

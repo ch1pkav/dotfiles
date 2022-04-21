@@ -36,6 +36,8 @@ Plug 'tell-k/vim-autopep8'
 
 Plug 'tpope/vim-repeat'
 
+Plug 'anosillus/vim-ipynb'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -132,6 +134,7 @@ autocmd FileType python map <buffer> <F9> :w<CR> :split<CR><C-W>j :ter python3 "
 autocmd FileType sh map <buffer> <F9> :w<CR> :split<CR><C-W>j :ter ./"%"<CR> :startinsert <CR> 
 autocmd FileType rust map <buffer> <F9> :RustFmt <CR> :w<CR> :split<CR><C-W>j :ter cargo run<CR> :startinsert <CR>
 autocmd FileType rust map <buffer> <F8> :RustFmt <CR> :w<CR> :split<CR><C-W>j :ter cargo check<CR> :startinsert <CR> 
+autocmd FileType c map <buffer> <F9> :w<CR> :split<CR><C-W>j :ter gcc "%" -o .tmp; ./.tmp<CR> :startinsert <CR> 
 map <F5> :NERDTreeToggle<CR>
 
 autocmd filetype python map <F8> :lvimgrep /def\s/ % \| lw<CR>
