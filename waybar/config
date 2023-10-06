@@ -12,7 +12,7 @@
     },
     "custom/icon": {
         "format": "  ",
-        "on-click": "notify-send \"$(neofetch --stdout)\""
+        "on-click": "notify-send \"$(/home/vepbxer/Documents/swayryvko/target/debug/swayryvko)\""
     },
     "sway/workspaces": {
         "all-outputs": true,
@@ -27,7 +27,7 @@
             "5.": "",
             "6.": "",
             "7.": "",
-            "8.": "",
+            "8.": "",
             "9.": "",
             "10.": ""
             }
@@ -107,12 +107,10 @@
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon}  {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": "{volume}%  {icon} {format_source}",
-        "format-muted": "{volume}%  {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-bluetooth-muted": "{volume}%  {icon}",
+        "format-muted": "{volume}% ",
         "format-icons": {
             "headphone": "",
             "hands-free": "",

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+acpi_listen | while read -r line; do
+  echo "${line}"
+  if grep -q "HEADPHONE unplug" <<< "${line}"; then
+    echo "$(date +%s): EVENT: Unplugged, pause here."
+    playerctl pause > /dev/null 2> /dev/null
+  fi
+done

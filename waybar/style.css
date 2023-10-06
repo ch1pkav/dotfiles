@@ -8,7 +8,7 @@
 }
 
 window#waybar {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
     color: #F5F6F3;
     transition-property: background-color;
     transition-duration: .5s;
@@ -80,7 +80,6 @@ window#waybar.chromium {
 }
 
 #clock,
-#battery,
 #cpu,
 #memory,
 #disk,
@@ -98,6 +97,7 @@ window#waybar.chromium {
     margin: 0 3px;
     padding-top: 2px;
     padding-bottom: 2px;
+    font-family: "Font Awesome 5 Free", Roboto;
 }
 
 #window{
@@ -124,15 +124,20 @@ window#waybar.chromium {
 }
 
 #battery {
+    padding: 0 10px;
+    color: #F5F6F3;
+    margin: 0 3px;
+    padding-top: 2px;
+    padding-bottom: 2px;
     /*background-color: #767676;*/
     border-top: 3px solid #767676;
-    color: #F5F6F3;
     /*border-radius: 0 25px 25px 0;*/
 }
 
 #battery.charging, #battery.plugged {
     color: #F5F6F3;
     border-top: 3px solid #26A65B;
+    font-family: "Font Awesome 5 Free", Roboto;
     /*background-color: #26A65B;*/
     /*margin-left: 4px;*/
     /*border-radius: 25px;*/
@@ -153,6 +158,7 @@ window#waybar.chromium {
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+    /*font-family: "Font Awesome 5 Free", Roboto;*/
     /*border-radius: 25px;*/
 }
 

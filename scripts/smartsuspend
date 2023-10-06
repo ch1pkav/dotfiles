@@ -1,6 +1,11 @@
 #!/bin/bash
 
-if [[ $(playerctl -p chromium status) != Playing ]] && [[ $(playerctl -p vlc status) != Playing ]]; 
-then
-	$1
-fi
+for player in $(playerctl -l); do
+	if ! [ -z $(echo $player | grep brave) ]; then
+		if [ "$(playerctl -p $player status)" = "Playing" ]; then
+			exit 1
+		fi
+	fi
+done
+
+$1

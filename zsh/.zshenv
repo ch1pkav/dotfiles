@@ -3,3 +3,5 @@ export XDG_PICTURES_DIR=/home/vepbxer/Pictures/Screenshots
 if [ -z "${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
   exec dbus-launch --exit-with-session sway > .swaylog
 fi
+alias sdc='sudo dispatch-conf'
+alias eql='equery list -po'

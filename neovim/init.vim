@@ -1,9 +1,9 @@
 " Plugins will be downloaded under the specified directory.
-colorscheme industry
-
 call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
+Plug 'NLKNguyen/papercolor-theme'
+
 Plug 'vim-airline/vim-airline'
 
 Plug 'sheerun/vim-polyglot'
@@ -36,7 +36,9 @@ Plug 'tell-k/vim-autopep8'
 
 Plug 'tpope/vim-repeat'
 
-Plug 'anosillus/vim-ipynb'
+"Plug 'anosillus/vim-ipynb'
+
+Plug 'github/copilot.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -105,7 +107,7 @@ lua <<EOF
   })
 
   -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
   require('lspconfig')['pylsp'].setup {
     capabilities = capabilities
@@ -122,7 +124,7 @@ func! WordProcessor()
   setlocal wrap
   setlocal linebreak
   " spelling and thesaurus
-  setlocal spell spelllang=en_us
+  "setlocal spell spelllang=en_us
   "set thesaurus+=/home/test/.vim/thesaurus/mthesaur.txt
   " complete+=s makes autocompletion search the thesaurus
   "set complete+=s
@@ -162,4 +164,13 @@ map <F6> :tabedit
 
 map <A-S-c> :so $MYVIMRC <CR>
 map <A-S-e> :tabedit $MYVIMRC <CR>
+
+set t_Co=259
+
+highlight Normal ctermbg=Black
+highlight NonText ctermbg=Black
+
+set background=dark
+
+colorscheme PaperColor
 

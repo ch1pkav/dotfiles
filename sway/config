@@ -8,7 +8,7 @@ font pango:Cantarell Regular 12
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet --indicator
 
-exec pipewire
+exec gentoo-pipewire-launcher
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -22,10 +22,10 @@ bindsym --to-code --locked XF86AudioMicMute exec --no-startup-id pactl set-sourc
 floating_modifier $mod
 
 # start a terminal
-bindsym --to-code $mod+Return exec alacritty
+bindsym --to-code $mod+Return exec kitty --single-instance
 
 # start a terminal in current directory
-bindsym --to-code $mod+Shift+Return exec alacritty --working-directory=$(pwdx $(ps --ppid $(swaymsg -t get_tree | jq '.. | (.nodes? // empty)[] | select(.focused==true) | .pid') --no-headers | awk '{print $1}') | awk '{print $2}')
+bindsym --to-code $mod+Shift+Return exec kitty --working-directory=$(pwdx $(ps --ppid $(swaymsg -t get_tree | jq '.. | (.nodes? // empty)[] | select(.focused==true) | .pid') --no-headers | awk '{print $1}') | awk '{print $2}')
 
 # kill focused window
 bindsym --to-code $mod+Shift+q kill
@@ -123,8 +123,8 @@ workspace $ws4 output primary
 workspace $ws5 output primary
 workspace $ws6 output primary
 workspace $ws7 output primary
-workspace $ws8 output primary
-workspace $ws9 output HDMI-A-1
+workspace $ws8 output DP-2
+workspace $ws9 output DP-3
 workspace $ws10 output primary
 
 output eDP1 pos 0 0
@@ -143,21 +143,27 @@ bindsym --to-code $mod+Shift+4 move container to workspace $ws9
 bindsym --to-code $mod+Shift+5 move container to workspace $ws10
 
 assign [class="Code"] $ws1
+assign [class="jetbrains-*"] $ws1
+assign [class="STM32CubeIDE"] $ws1
 assign [app_id="Alacritty"] $ws1
 assign [app_id="foot"] $ws1
+assign [app_id="kitty"] $ws1
 assign [class="Firefox"] $ws2
 assign [class="Chromium"] $ws2
 assign [class="Brave-browser"] $ws2
 assign [app_id="brave-browser"] $ws2
 assign [class="Thunderbird"] $ws2
 assign [app_id=".*Telegram_Desktop"] $ws3
+assign [app_id="telegramdesktop"] $ws3
+assign [app_id="org.telegram.desktop"] $ws3
 assign [class="discord"] $ws3
 assign [class="Signal"] $ws3
 assign [class="Microsoft Teams - Preview"] $ws3
 assign [class="teams-for-linux"] $ws3
 assign [class="zoom"] $ws3
-assign [class="Skype"] $ws3
+assign [class="Skype"] $wskitty
 assign [class="Steam"] $ws4
+assign [class="steam"] $ws4
 assign [app_id="pcmanfm"] $ws5
 assign [class="feh"] $ws5
 assign [class="Gnome-todo"] $ws6
@@ -170,12 +176,14 @@ assign [app_id="pavucontrol"] $ws10
 assign [class="QjackCtl"] $ws10
 assign [class="Spotify"] $ws10
 assign [app_id="audacious"] $ws10
+assign [app_id="com.github.wwmm.easyeffects"] $ws10
 
 for_window [class="Microsoft Teams - Preview" window_type="notification"] floating enable
 for_window [class="Microsoft Teams - Preview"] fullscreen disable
 for_window [class="Blueman-manager"] floating enable
 for_window [class="QjackCtl"] floating enable
 for_window [class="Spotify"] move to workspace $ws10
+for_window [class="telegramdesktop"] move to workspace $ws3
 for_window [class="fl64.exe"] move to workspace $ws8
 
 # reload the configuration file
@@ -261,12 +269,12 @@ bindsym --to-code $mod+Shift+x exec "suslock-wl"
 #keyboard layout switching
 
 #background with feh
-output "*" bg ~/Desktop/photo-1473773508845-188df298d2d1.jpeg fill
+output "*" bg /home/vepbxer/Desktop/PXL_20220716_074505857.MP.png fill
 seat seat0 xcursor_theme macOSBigSur-White 1
 
 #startup apps
 #exec --no-startup-id code
-exec --no-startup-id alacritty
+exec --no-startup-id kitty
 #exec --no-startup-id telegram-desktop
 #exec --no-startup-id pavucontrol
 #exec --no-startup-id audacious
@@ -295,12 +303,13 @@ exec_always brightness
 input * {
     xkb_layout "us,ua"
     xkb_options "grp:win_space_toggle"
+    dwt disable
 }
 
 bindsym --locked --to-code $mod+Shift+s exec screenoff-wl
 
-exec --no-startup-id xss-lock swlck
-exec swayidle -w timeout 300 'smartsuspend suslock-wl' resume 'swaymsg "output * dpms on"; echo 1 > /tmp/lcd'
+exec_always --no-startup-id xss-lock swlck
+exec_always swayidle -w timeout 300 'smartsuspend suslock-wl' resume 'swaymsg "output * dpms on"; echo 1 > /tmp/lcd'
 
 bindsym --to-code --locked XF86AudioPlay exec playerctl play-pause
 bindsym --to-code --locked XF86AudioNext exec playerctl next
@@ -327,7 +336,7 @@ input 2522:37008:A4TECH_USB_Device pointer_accel 0
 input 1102:4639:DELL0817:00_044E:121F_Mouse accel_profile flat
 input 1102:4639:DELL0817:00_044E:121F_Mouse pointer_accel 0.5
 
-bindsym --to-code $mod+Shift+p exec alacritty -e pkglookup
+bindsym --to-code $mod+Shift+p exec kitty -e pkglookup
 
 
 set $gnome-schema org.gnome.desktop.interface
@@ -356,6 +365,14 @@ exec wmname LG3D
 
 #exec wofi --show=run
 #bindsym $mod+Shift+w exec wofi --show=run
-bindsym $mod+Shift+w exec killall wf-recorder
+bindsym $mod+Shift+w exec kill -2 $(pidof wf-recorder)
 
 exec mpris-proxy
+
+# dunst
+
+bindsym --to-code $mod+Shift+n exec dunstctl close-all
+bindsym --to-code $mod+Shift+m exec dunstctl context
+
+exec /home/vepbxer/.local/bin/headphone_unplug_listener > /home/vepbxer/.headphone_listener.log 2> /home/vepbxer/.headphone_listener.log & 
+exec dim_unfocused_sway.py
