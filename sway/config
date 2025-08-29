@@ -269,7 +269,8 @@ bindsym --to-code $mod+Shift+x exec "suslock-wl"
 #keyboard layout switching
 
 #background with feh
-output "*" bg /home/vepbxer/Desktop/PXL_20220716_074505857.MP.png fill
+exec getrandbg.sh
+#output "*" bg /home/vepbxer/Desktop/PXL_20220716_074505857.MP.png fill
 seat seat0 xcursor_theme macOSBigSur-White 1
 
 #startup apps
@@ -323,6 +324,7 @@ input type:touchpad {
     tap enabled
     natural_scroll enabled
     accel_profile flat
+    scroll_factor 0.2
 }
 
 input type:mouse {
@@ -376,3 +378,4 @@ bindsym --to-code $mod+Shift+m exec dunstctl context
 
 exec /home/vepbxer/.local/bin/headphone_unplug_listener > /home/vepbxer/.headphone_listener.log 2> /home/vepbxer/.headphone_listener.log & 
 exec dim_unfocused_sway.py
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
